@@ -14,11 +14,13 @@ typeText();
 
 /************* Reasons *************/
 const reasons = [
+  'Anh luôn muốn được gặp và bên cạnh cô Trinh mỗi ngày 🌞',
   'Vì em luôn quan tâm anh 🫶',
   'Mỗi lần em cười làm mọi thứ trong anh trở nên rất hạnh phúc ✨😊',
   'Em là điều tuyệt vời nhất trong cuộc đời anh 💖🌷',
   'Hãy mở hộp quà để biết điều bất ngờ anh làm cho em nhé 🎁💌',
 ];
+
 
 const reasonList = document.getElementById('reasonList');
 
