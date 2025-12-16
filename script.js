@@ -21,7 +21,6 @@ const reasons = [
   'Hãy mở hộp quà để biết điều bất ngờ anh làm cho em nhé 🎁💌',
 ];
 
-
 const reasonList = document.getElementById('reasonList');
 
 reasons.forEach((reason, i) => {
