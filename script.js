@@ -62,7 +62,8 @@ const gallery = document.getElementById('gallery');
 
 giftBtn.addEventListener('click', () => {
   if (music) {
-    music.muted = false;
+    music.pause(); // đảm bảo dừng
+    music.currentTime = 0; // 🔥 QUAY VỀ GIÂY 0
     music.play().catch(() => {});
     musicToggle.textContent = '🔊';
   }
