@@ -40,18 +40,6 @@ if (music) {
   music.volume = 0.8;
 }
 
-/* bật tiếng khi user click lần đầu (đúng luật browser) */
-document.addEventListener(
-  'click',
-  () => {
-    if (music && music.muted) {
-      music.muted = false;
-      // musicToggle.textContent = '🔊';
-    }
-  },
-  { once: true }
-);
-
 /* icon bật / tắt nhạc */
 musicToggle.addEventListener('click', (e) => {
   e.stopPropagation();
@@ -73,7 +61,8 @@ const gallery = document.getElementById('gallery');
 
 giftBtn.addEventListener('click', () => {
   if (music) {
-    music.play();
+    music.muted = false;
+    music.play().catch(() => {});
     musicToggle.textContent = '🔊';
   }
 
