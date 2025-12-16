@@ -1,0 +1,489 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background:
+    linear-gradient(
+      rgba(205, 205, 212, 0.85),
+      rgba(76, 30, 32, 0.9)
+    ),
+    url("music/image6.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Snow canvas */
+#snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Hero */
+.hero {
+  min-height: 50vh;   /* thay vì 70vh */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  padding: 20px;
+}
+
+
+/* Reasons */
+.reasons {
+  padding: 50px 20px;
+}
+
+.reasons ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.reasons li {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+/* Gift */
+.gift {
+  margin: 50px 0;
+}
+
+#giftBtn {
+  font-size: 1.5rem;
+  padding: 15px 30px;
+  border-radius: 30px;
+  border: none;
+  background: gold;
+  cursor: pointer;
+}
+
+/* Final */
+.final {
+  padding: 60px 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Heart animation */
+.heart {
+  width: 100px;
+  height: 100px;
+  background: red;
+  margin: 20px auto;
+  position: relative;
+  transform: rotate(45deg);
+  animation: beat 1s infinite;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  width: 100px;
+  height: 100px;
+  background: red;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart::before {
+  top: -50px;
+  left: 0;
+}
+
+.heart::after {
+  left: -50px;
+  top: 0;
+}
+
+@keyframes beat {
+  0%, 100% {
+    transform: rotate(45deg) scale(1);
+  }
+  50% {
+    transform: rotate(45deg) scale(1.2);
+  }
+}
+
+/* Music toggle */
+.music-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 999;
+  background: rgba(0,0,0,0.4);
+  padding: 10px 14px;
+  border-radius: 50%;
+}
+
+
+/* ===== SPIRAL TREE ADVANCED ===== */
+.spiral-tree {
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+}
+
+.spiral-tree pre {
+  font-family: "Courier New", monospace;
+  font-size: clamp(13px, 4vw, 18px);
+  line-height: 1.2;
+  white-space: pre;
+  text-align: left;
+}
+
+/* đèn nhấp nháy */
+.light {
+  animation: lightBlink 1s infinite alternate;
+}
+
+@keyframes lightBlink {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+
+/* ===== GALLERY (BALANCED) ===== */
+.gallery {
+  padding: 40px 20px 80px;
+}
+
+.gallery h2 {
+  font-size: 1.9rem;
+  margin-bottom: 40px;
+}
+
+/* khung tổng */
+.slider {
+  position: relative;
+  width: min(500vw, 560px);
+  height: 480px;
+  margin: auto;
+}
+
+/* ===== ADVANCED SLIDER ANIMATION ===== */
+.slider img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+
+  opacity: 0;
+  transform:
+    scale(1.15)
+    translateY(40px)
+    rotate(-1.5deg);
+
+  transition:
+    opacity 1.4s ease,
+    transform 2.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+  box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+}
+
+/* Ảnh đang active */
+.slider img.active {
+  opacity: 1;
+  transform:
+    scale(1)
+    translateY(0)
+    rotate(0deg);
+
+  z-index: 3;
+
+  /* zoom chậm kiểu điện ảnh */
+  animation: kenburns 12s ease-out forwards;
+}
+
+/* ảnh phía sau (tạo chiều sâu) */
+.slider img:not(.active) {
+  z-index: 1;
+}
+
+/* ===== KEN BURNS EFFECT ===== */
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    transform: scale(1.08) translateY(-10px);
+  }
+}
+/* ===== ADVANCED SLIDER ANIMATION ===== */
+
+/* ===== FALLING ITEMS ===== */
+.fall-item {
+  position: fixed;
+  top: -120px;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.95;
+}
+
+/* TREE */
+.tree {
+  width: 40px;
+  animation: treeFall linear infinite;
+}
+
+/* ANGEL */
+.angel {
+  width: 40px;
+  animation: angelFall linear infinite;
+}
+
+/* SANTA */
+.santa {
+  width: 40px;
+  animation: santaFall linear infinite;
+}
+
+/* ===== KEYFRAMES ===== */
+@keyframes treeFall {
+  0% {
+    transform: translateY(-120px) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(5deg);
+  }
+}
+
+@keyframes angelFall {
+  0% {
+    transform: translate(-20px, -120px);
+  }
+  50% {
+    transform: translate(20px, 50vh);
+  }
+  100% {
+    transform: translate(-20px, 110vh);
+  }
+}
+
+@keyframes santaFall {
+  0% {
+    transform: translateY(-120px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+/* ===== METEOR / SHOOTING STAR ===== */
+/* ===== SHOOTING STAR WITH TRAIL ===== */
+/* ===== METEOR RAIN RIGHT → LEFT ===== */
+.meteor {
+  position: fixed;
+  width: 3px;
+  height: 220px;
+  pointer-events: none;
+  z-index: 9999;
+
+  /* ĐẦU SÁNG Ở PHÍA PHẢI – ĐUÔI KÉO VỀ TRÁI */
+  background: linear-gradient(
+    to top,
+    rgba(255,255,255,0),
+    rgba(255,255,255,1)
+  );
+
+  opacity: 0.95;
+
+  /* xoay để bay từ phải sang trái */
+  transform: rotate(45deg);
+
+  filter:
+    drop-shadow(0 0 6px white)
+    drop-shadow(0 0 18px rgba(255,255,255,0.9));
+
+  animation: meteorFly linear forwards;
+}
+
+/* ⭐ ĐẦU SAO BĂNG */
+.meteor::before {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+
+  box-shadow:
+    0 0 10px white,
+    0 0 25px rgba(255,255,255,0.9);
+}
+
+/* ===== CHUYỂN ĐỘNG: PHẢI → TRÁI ===== */
+@keyframes meteorFly {
+  from {
+    transform: translate(0, 0) rotate(45deg);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-110vw, 110vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+
+/* ===== GIFT REVEAL ===== */
+
+.hidden {
+  display: none !important;
+}
+
+.firework::before,
+.firework::after {
+  animation-play-state: paused;
+}
+
+.gift-reveal.active .firework::before,
+.gift-reveal.active .firework::after {
+  animation-play-state: running;
+}
+
+.gift-reveal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 580px;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+.gift-image {
+  width: 320px;
+  max-width: 80vw;
+  border-radius: 24px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  animation: giftPop 1.2s ease-out forwards;
+  z-index: 2;
+}
+
+/* ===== FIREWORKS ===== */
+.firework {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.firework::before,
+.firework::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  animation: fireworkExplode 1.2s ease-out infinite;
+}
+
+.firework::after {
+  animation-delay: 0.4s;
+}
+
+/* màu pháo */
+.firework.left::before,
+.firework.left::after {
+  border-color: gold;
+}
+
+.firework.right::before,
+.firework.right::after {
+  border-color: hotpink;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fireworkExplode {
+  0% {
+    transform: scale(0.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+@keyframes giftPop {
+  0% {
+    transform: scale(0.5) rotate(-5deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+
+
+/* ===== SIDE ANGELS ===== */
+.side-angel {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9997;
+  pointer-events: none;
+}
+
+.side-angel img {
+  width: 120px;
+  animation: angelDance 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));
+}
+
+/* bên trái */
+.side-angel.left {
+  left: 100px;
+}
+
+/* bên phải */
+.side-angel.right {
+  right: 100px;
+}
+
+/* hiệu ứng nhảy múa */
+@keyframes angelDance {
+  0% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+}

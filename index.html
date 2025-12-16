@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Merry Christmas My Love 🎄</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<canvas id="snow"></canvas>
+
+<section class="hero">
+  <h1 id="typing"></h1>
+</section>
+
+<section class="gallery hidden" id="gallery">
+  <h2>✨ Những khoảnh khắc của em ✨</h2>
+
+  <div class="slider">
+    <img src="music/image1.jpg" class="active" />
+    <img src="music/image2.jpg" />
+    <img src="music/image3.jpg" />
+    <img src="music/image4.jpg" />
+  </div>
+</section>
+
+<section class="reasons">
+  <h2>💖 Lý do anh yêu em</h2>
+  <ul id="reasonList"></ul>
+</section>
+
+<section class="gift">
+  <button id="giftBtn">🎁 Click để mở quà</button>
+</section>
+
+<section class="final hidden" id="finalMessage">
+  <div class="heart"></div>
+  <h2>Merry Christmas, my love 🎄❤️</h2>
+  <p>
+    Anh mong được đón thêm thật nhiều mùa Giáng Sinh nữa cùng em.<br />
+    Anh yêu em rất nhiều 💕
+  </p>
+</section>
+
+<audio id="music" autoplay loop muted>
+  <source src="music/RockinAroundTheChristmasTree.mp3" type="audio/mpeg">
+</audio>
+
+<div id="musicToggle" class="music-toggle">🔇</div>
+
+<!-- GIFT IMAGE + FIREWORKS -->
+<div id="giftReveal" class="gift-reveal hidden">
+  <div class="firework left"></div>
+
+  <!-- <img src="music/image5.jpg" class="gift-image" /> -->
+
+  <div class="firework right"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+
+<!-- Noel Decorations -->
+<div id="angelLeft" class="side-angel left hidden">
+  <img src="music/image8.png" alt="Angel Left">
+</div>
+
+<div id="angelRight" class="side-angel right hidden">
+  <img src="music/image8.png" alt="Angel Right">
+</div>
+</html>
