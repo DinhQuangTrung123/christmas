@@ -96,6 +96,18 @@ giftBtn.addEventListener('click', () => {
       block: 'center',
     });
   }, 300); // đợi gallery hiện ra
+
+  // 🎆 REAL FIREWORK BURST
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      createFirework(
+        window.innerWidth * (0.2 + Math.random() * 0.6),
+        window.innerHeight * (0.2 + Math.random() * 0.4)
+      );
+    }, i * 450);
+  }
+
+  startFireworkLoop();
 });
 
 /************* Snow Effect *************/
@@ -162,7 +174,8 @@ setInterval(() => {
 const fallImages = [
   { src: 'music/image7.png', class: 'tree' },
   { src: 'music/image8.png', class: 'angel' },
-  { src: 'music/image9.jpg', class: 'santa' },
+  { src: 'music/image9.png', class: 'santa' },
+  { src: 'music/image19.png', class: 'tree' },
 ];
 
 function createFallingItem() {
@@ -233,3 +246,45 @@ setInterval(() => {
     setTimeout(createMeteor, 300);
   }
 }, 1200);
+/************* REAL FIREWORK (FIXED) *************/
+function createFirework(x, y) {
+  const firework = document.createElement('div');
+  firework.className = 'firework';
+  firework.style.left = x + 'px';
+  firework.style.top = y + 'px';
+
+  const colors = ['#ffd700', '#ff4d6d', '#7df9ff', '#ffffff', '#ff9f1c'];
+  const sparks = 28;
+
+  for (let i = 0; i < sparks; i++) {
+    const spark = document.createElement('span');
+    spark.className = 'spark';
+
+    const angle = (Math.PI * 2 * i) / sparks;
+    const distance = Math.random() * 140 + 60;
+
+    spark.style.setProperty('--x', Math.cos(angle) * distance + 'px');
+    spark.style.setProperty('--y', Math.sin(angle) * distance + 'px');
+    spark.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+    firework.appendChild(spark);
+  }
+
+  document.body.appendChild(firework);
+
+  setTimeout(() => firework.remove(), 1800);
+}
+
+/************* FIREWORK LOOP *************/
+let fireworkInterval = null;
+
+function startFireworkLoop() {
+  if (fireworkInterval) return; // tránh chạy nhiều lần
+
+  fireworkInterval = setInterval(() => {
+    createFirework(
+      window.innerWidth * (0.15 + Math.random() * 0.7),
+      window.innerHeight * (0.15 + Math.random() * 0.5)
+    );
+  }, 900); // 🔥 1 pháo hoa mỗi 0.9s
+}
