@@ -3,17 +3,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-  background: 
-    linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.3),
-      rgba(0,0,0,0.9)
-    ),
-    url("music/imnage21.jpg");
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9)),
+    url('music/imnage21.jpg');
 
   background-size: cover;
   background-position: center;
@@ -95,7 +91,7 @@ body {
 
 .heart::before,
 .heart::after {
-  content: "";
+  content: '';
   width: 100px;
   height: 100px;
   background: red;
@@ -114,8 +110,13 @@ body {
 }
 
 @keyframes beat {
-  0%,100% { transform: rotate(45deg) scale(1); }
-  50% { transform: rotate(45deg) scale(1.2); }
+  0%,
+  100% {
+    transform: rotate(45deg) scale(1);
+  }
+  50% {
+    transform: rotate(45deg) scale(1.2);
+  }
 }
 
 /* ================= MUSIC ================= */
@@ -126,7 +127,7 @@ body {
   font-size: 28px;
   cursor: pointer;
   z-index: 999;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   padding: 10px 14px;
   border-radius: 50%;
 }
@@ -159,7 +160,7 @@ body {
   border-radius: 24px;
   opacity: 0;
   z-index: 1;
-  box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
 }
 
 .slider img.active {
@@ -173,38 +174,62 @@ body {
 
 /* SLIDE FROM LEFT */
 .slider img.in-left.active {
-  animation: slideInLeft 1.4s cubic-bezier(.22,1,.36,1) forwards;
+  animation: slideInLeft 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 @keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-120%); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* SLIDE FROM RIGHT */
 .slider img.in-right.active {
-  animation: slideInRight 1.4s cubic-bezier(.22,1,.36,1) forwards;
+  animation: slideInRight 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(120%); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* SLIDE FROM TOP */
 .slider img.in-top.active {
-  animation: slideInTop 1.4s cubic-bezier(.22,1,.36,1) forwards;
+  animation: slideInTop 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 @keyframes slideInTop {
-  from { opacity: 0; transform: translateY(-120%); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-120%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* SLIDE FROM BOTTOM */
 .slider img.in-bottom.active {
-  animation: slideInBottom 1.4s cubic-bezier(.22,1,.36,1) forwards;
+  animation: slideInBottom 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 @keyframes slideInBottom {
-  from { opacity: 0; transform: translateY(120%); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(120%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ROTATE + FADE IN */
@@ -212,8 +237,14 @@ body {
   animation: rotateIn 1.4s ease-out forwards;
 }
 @keyframes rotateIn {
-  from { opacity: 0; transform: rotate(-10deg) scale(0.9); }
-  to   { opacity: 1; transform: rotate(0deg) scale(1); }
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
 }
 
 /* ZOOM FROM CORNER */
@@ -221,8 +252,14 @@ body {
   animation: zoomCorner 1.4s ease-out forwards;
 }
 @keyframes zoomCorner {
-  from { opacity: 0; transform: translate(-40px,-40px) scale(0.6); }
-  to   { opacity: 1; transform: translate(0,0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translate(-40px, -40px) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
 }
 
 /* ================= FALLING ITEMS ================= */
@@ -233,27 +270,47 @@ body {
   z-index: 3;
 }
 
-.tree, .angel, .santa {
+.tree,
+.angel,
+.santa {
   width: 40px;
 }
 
-.tree { animation: treeFall linear infinite; }
-.angel { animation: angelFall linear infinite; }
-.santa { animation: santaFall linear infinite; }
+.tree {
+  animation: treeFall linear infinite;
+}
+.angel {
+  animation: angelFall linear infinite;
+}
+.santa {
+  animation: santaFall linear infinite;
+}
 
 @keyframes treeFall {
-  from { transform: translateY(-120px) rotate(-5deg); }
-  to   { transform: translateY(110vh) rotate(5deg); }
+  from {
+    transform: translateY(-120px) rotate(-5deg);
+  }
+  to {
+    transform: translateY(110vh) rotate(5deg);
+  }
 }
 
 @keyframes angelFall {
-  from { transform: translate(-20px,-120px); }
-  to   { transform: translate(20px,110vh); }
+  from {
+    transform: translate(-20px, -120px);
+  }
+  to {
+    transform: translate(20px, 110vh);
+  }
 }
 
 @keyframes santaFall {
-  from { transform: translateY(-120px); }
-  to   { transform: translateY(110vh) rotate(360deg); }
+  from {
+    transform: translateY(-120px);
+  }
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
 }
 
 /* ================= METEOR ================= */
@@ -261,16 +318,22 @@ body {
   position: fixed;
   width: 3px;
   height: 220px;
-  background: linear-gradient(to top, rgba(255,255,255,0), white);
-  opacity: .9;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0), white);
+  opacity: 0.9;
   transform: rotate(45deg);
   animation: meteorFly linear forwards;
   z-index: 9999;
 }
 
 @keyframes meteorFly {
-  from { transform: translate(0,0) rotate(45deg); opacity: 1; }
-  to   { transform: translate(-110vw,110vh) rotate(45deg); opacity: 0; }
+  from {
+    transform: translate(0, 0) rotate(45deg);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-110vw, 110vh) rotate(45deg);
+    opacity: 0;
+  }
 }
 
 /* ================= FIREWORK ================= */
@@ -292,36 +355,104 @@ body {
 }
 
 @keyframes sparkFly {
-  from { transform: translate(0,0) scale(1); opacity: 1; }
-  to   { transform: translate(var(--x),var(--y)) scale(.4); opacity: 0; }
+  from {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--x), var(--y)) scale(0.4);
+    opacity: 0;
+  }
 }
+/* ================= SIDE ANGELS (RESPONSIVE) ================= */
 
-/* ================= SIDE ANGELS (FIX LOST) ================= */
 .side-angel {
   position: fixed;
   top: 50%;
-  transform: translateY(-50%);
   z-index: 9997;
   pointer-events: none;
 }
 
+/* wrapper chỉ để căn giữa */
+.side-angel .angel-wrap {
+  transform: translateY(-50%);
+}
+
+/* animation CHỈ nằm ở img */
 .side-angel img {
-  width: 120px;
-  animation: angelDance 1.6s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));
+  width: 320px;
+  max-width: 40vw;
+
+  animation-name: angelDance;
+  animation-duration: 1.6s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+
+  will-change: transform;
+  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 1));
 }
 
-/* bên trái */
+/* desktop */
 .side-angel.left {
-  left: 100px;
+  left: 60px;
 }
-
-/* bên phải */
 .side-angel.right {
-  right: 100px;
+  right: 60px;
 }
 
-/* hiệu ứng thiên thần */
+/* ================= TABLET ================= */
+@media (max-width: 1024px) {
+  .side-angel img {
+    width: 220px;
+
+    /* ⚠️ ép animation chạy lại */
+    animation-name: angelDance;
+  }
+
+  .side-angel.left {
+    left: -30px;
+  }
+  .side-angel.right {
+    right: -30px;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .side-angel {
+    top: auto;
+    bottom: 0;
+  }
+
+  .side-angel .angel-wrap {
+    transform: none;
+  }
+
+  .side-angel img {
+    width: 140px;
+    opacity: 0.6;
+
+    /* ⚠️ BẮT BUỘC: animation phải khai báo lại */
+    animation-name: angelDance;
+    animation-duration: 1.6s;
+  }
+
+  .side-angel.left {
+    left: -25px;
+  }
+  .side-angel.right {
+    right: -25px;
+  }
+}
+
+/* mobile nhỏ → ẩn */
+@media (max-width: 480px) {
+  .side-angel {
+    display: none;
+  }
+}
+
+/* ================= ANIMATION ================= */
 @keyframes angelDance {
   0% {
     transform: translateY(0) rotate(-5deg);
@@ -339,7 +470,6 @@ body {
     transform: translateY(0) rotate(-5deg);
   }
 }
-
 /* ================= GHOST / SHADOW FADE EFFECT ================= */
 
 /* ảnh vừa rời active → thành bóng mờ */
@@ -361,7 +491,6 @@ body {
   filter: blur(6px);
 }
 
-
 /* ================= MULTI IMAGE BURST ================= */
 
 /* ảnh dùng cho burst */
@@ -374,20 +503,17 @@ body {
 @keyframes burstIn {
   from {
     opacity: 0;
-    transform:
-      translate(var(--dx), var(--dy))
-      scale(0.7)
-      rotate(var(--rot));
+    transform: translate(var(--dx), var(--dy)) scale(0.7) rotate(var(--rot));
   }
   to {
     opacity: 1;
-    transform: translate(0,0) scale(1) rotate(0deg);
+    transform: translate(0, 0) scale(1) rotate(0deg);
   }
 }
 
 /* dùng cho intro */
 .slider img.burst.intro {
-  animation: burstIn 1.4s cubic-bezier(.22,1,.36,1) forwards;
+  animation: burstIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* dùng cho outro */
@@ -423,10 +549,10 @@ body {
   width: 220px;
   max-width: 40vw;
   border-radius: 20px;
-  box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
   opacity: 0;
   z-index: 9996;
-  animation: scatterIn 1.1s cubic-bezier(.22,1,.36,1) forwards;
+  animation: scatterIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes scatterIn {
@@ -446,9 +572,15 @@ body {
 }
 
 @keyframes floatScatter {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-10px) scale(1.02); }
-  100% { transform: translateY(0) scale(1); }
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* biến mất */
@@ -471,7 +603,7 @@ body {
   width: 240px;
   max-width: 45vw;
   border-radius: 20px;
-  box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
   opacity: 0;
   z-index: 9996;
 }
@@ -537,5 +669,5 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(0.8);
-  animation: fromCenter 1.8s ease-out f
+  animation: fromCenter 1.8s ease-out f;
 }
