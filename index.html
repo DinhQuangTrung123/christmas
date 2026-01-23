@@ -2,72 +2,183 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <title>Happy New Year Cô Trinh của anh ^^ 🎄</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Merry Christmas Cô Trinh của anh 🎄</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <canvas id="snow"></canvas>
+    <div class="stars" id="stars"></div>
 
-    <section class="hero">
-      <h1 id="typing"></h1>
-    </section>
+    <!-- trang trí hai bên (chỉ hiện trên màn hình rộng) -->
+    <aside class="side left" id="sideL"></aside>
+    <aside class="side right" id="sideR"></aside>
+    <div class="sleigh" aria-hidden="true">🦌🦌🛷🎅</div>
 
-    <section class="gallery hidden" id="gallery">
-      <h2>✨ Những khoảnh khắc của em ✨</h2>
+    <!-- ============ INTRO: MỞ THIỆP ============ -->
+    <div id="intro" class="intro">
+      <button id="openCard" class="envelope" aria-label="Mở thiệp">
+        <span class="env-flap"></span>
+        <span class="env-body"></span>
+        <span class="env-seal">❤</span>
+      </button>
+      <p class="intro-text">Có một tấm thiệp Giáng Sinh dành cho em 💌</p>
+      <p class="intro-hint">Chạm để mở (nhớ bật loa nha)</p>
+    </div>
 
-      <div class="slider">
-        <img src="music/image1.jpg" class="active" />
-        <img src="music/image18.jpg" />
-        <img src="music/image19.jpg" />
-        <img src="music/image2.jpg" />
-        <img src="music/image3.jpg" />
-        <img src="music/image4.jpg" />
-        <img src="music/image10.jpg" />
-        <img src="music/image11.jpg" />
-        <img src="music/image12.jpg" />
-        <img src="music/image13.jpg" />
-        <img src="music/image15.jpg" />
-        <img src="music/image16.jpg" />
+    <!-- ============ NÚT NHẠC ============ -->
+    <button id="musicToggle" class="music-toggle" aria-label="Bật/tắt nhạc">
+      🔇
+    </button>
+
+    <!-- ============ 1. HERO + CÂY THÔNG ============ -->
+    <header class="hero">
+      <div class="tree-wrap">
+        <svg
+          id="tree"
+          class="tree"
+          viewBox="0 0 300 400"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Cây thông Giáng Sinh"
+        >
+          <defs>
+            <linearGradient id="gTree" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2e9e5b" />
+              <stop offset="1" stop-color="#0f5a36" />
+            </linearGradient>
+            <radialGradient id="gStar" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#fff7b0" />
+              <stop offset="1" stop-color="#ffc400" />
+            </radialGradient>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <ellipse cx="150" cy="392" rx="110" ry="8" fill="rgba(255,255,255,.18)" />
+          <rect x="132" y="338" width="36" height="44" rx="4" fill="#6b3f1d" />
+
+          <!-- 3 tầng, mỗi tầng đung đưa riêng -->
+          <g id="tier2" class="tier t2">
+            <polygon fill="url(#gTree)" stroke="url(#gTree)" stroke-width="14" stroke-linejoin="round" points="150,184 52,332 248,332" />
+            <path class="garland" d="M62 326 Q150 366 238 326" />
+          </g>
+          <g id="tier1" class="tier t1">
+            <polygon fill="url(#gTree)" stroke="url(#gTree)" stroke-width="14" stroke-linejoin="round" points="150,104 70,236 230,236" />
+            <path class="garland" d="M82 228 Q150 262 218 228" />
+          </g>
+          <g id="tier0" class="tier t0">
+            <polygon fill="url(#gTree)" stroke="url(#gTree)" stroke-width="14" stroke-linejoin="round" points="150,44 96,150 204,150" />
+            <path class="garland" d="M104 140 Q150 168 196 140" />
+          </g>
+
+          <g id="star" class="tree-star" filter="url(#glow)">
+            <polygon
+              fill="url(#gStar)"
+              points="150,6 158,28 182,28 163,42 170,64 150,51 130,64 137,42 118,28 142,28"
+            />
+          </g>
+        </svg>
+        <div class="tree-hint">✨ chạm vào cây đi ✨</div>
       </div>
-    </section>
 
-    <section class="reasons">
+      <h1 class="title">Merry Christmas</h1>
+      <h2 class="subtitle">Cô Trinh của anh</h2>
+      <p id="typing" class="typing"></p>
+
+      <div class="countdown" id="countdown">
+        <div><b id="cdD">0</b><span>ngày</span></div>
+        <div><b id="cdH">0</b><span>giờ</span></div>
+        <div><b id="cdM">0</b><span>phút</span></div>
+        <div><b id="cdS">0</b><span>giây</span></div>
+      </div>
+      <p class="countdown-label" id="cdLabel">nữa là đến Giáng Sinh</p>
+    </header>
+
+    <!-- ============ 2. LỜI CHÚC ============ -->
+    <section class="wishes reveal">
+      <h2 class="section-title">Điều anh muốn nói với em</h2>
       <ul id="reasonList"></ul>
     </section>
 
-    <section class="gift">
-      <button id="giftBtn">🎁 Click để mở quà</button>
+    <!-- ============ 3. ẢNH ============ -->
+    <section class="gallery reveal">
+      <h2 class="section-title">Những khoảnh khắc của em</h2>
+      <div class="polaroid">
+        <div class="slider" id="slider">
+          <img src="music/image1.jpg" class="active" alt="" />
+          <img src="music/image18.jpg" alt="" loading="lazy" />
+          <img src="music/image19.jpg" alt="" loading="lazy" />
+          <img src="music/image2.jpg" alt="" loading="lazy" />
+          <img src="music/image3.jpg" alt="" loading="lazy" />
+          <img src="music/image4.jpg" alt="" loading="lazy" />
+          <img src="music/image10.jpg" alt="" loading="lazy" />
+          <img src="music/image11.jpg" alt="" loading="lazy" />
+          <img src="music/image12.jpg" alt="" loading="lazy" />
+          <img src="music/image13.jpg" alt="" loading="lazy" />
+          <img src="music/image15.jpg" alt="" loading="lazy" />
+          <img src="music/image16.jpg" alt="" loading="lazy" />
+        </div>
+        <div class="polaroid-caption" id="caption">Merry Christmas 🎄</div>
+        <button class="nav prev" id="prevSlide" aria-label="Ảnh trước">‹</button>
+        <button class="nav next" id="nextSlide" aria-label="Ảnh sau">›</button>
+      </div>
+    </section>
+
+    <!-- ============ 4. GAME ============ -->
+    <section class="game-section reveal" id="gameSection">
+      <h2 class="section-title">Trò chơi: Hứng quà cùng ông già Noel</h2>
+      <p class="game-sub">
+        Kéo ông già Noel để hứng quà 🎁 ⭐ ❤️ — tránh cục than 🪨!<br />
+        Đạt <b>150 điểm</b> trong 45 giây để mở khóa món quà bí mật.
+      </p>
+
+      <div class="game-box" id="gameBox">
+        <div class="hud">
+          <span>⭐ <b id="score">0</b> / 150</span>
+          <span>⏱ <b id="time">45</b>s</span>
+          <span id="lives">❤️❤️❤️</span>
+        </div>
+        <canvas id="game"></canvas>
+
+        <div class="overlay" id="gameOverlay">
+          <h3 id="ovTitle">Sẵn sàng chưa?</h3>
+          <p id="ovText">Dùng ngón tay / chuột / phím ← → để di chuyển</p>
+          <button id="startGame" class="btn">▶ Bắt đầu chơi</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. QUÀ ============ -->
+    <section class="gift reveal">
+      <p id="giftLock" class="gift-lock">🔒 Thắng trò chơi để mở quà nha em</p>
+      <button id="giftBtn" class="btn gold locked" disabled>🎁 Mở quà Giáng Sinh</button>
     </section>
 
     <section class="final hidden" id="finalMessage">
       <div class="heart"></div>
-      <h2>🎆 Happy New Year 2026 🎆</h2>
-      <p>
-        Mong rằng năm mới sẽ mang đến cho em<br />
-        thật nhiều niềm vui, may mắn và những điều tuyệt vời nhất 💖
+      <h2 class="script">Merry Christmas, em yêu ❤️</h2>
+      <p class="letter">
+        Cảm ơn em đã đến bên anh và làm cho mùa đông của anh trở nên ấm áp.<br />
+        Giáng Sinh này, điều ước duy nhất của anh là được cùng em<br />
+        đi qua thật nhiều mùa Noel nữa — năm nào cũng vậy. 🎄<br /><br />
+        <b>Anh yêu em nhiều lắm!</b>
       </p>
+      <p class="sign">— Của riêng em —</p>
     </section>
 
-    <audio id="music"></audio>
+    <footer class="foot">Made with ❤️ for Trinh · Noel 2026</footer>
 
-    <div id="musicToggle" class="music-toggle">🔇</div>
-
-    <!-- GIFT IMAGE + FIREWORKS -->
-    <div id="giftReveal" class="gift-reveal hidden"></div>
-
+    <audio id="music" preload="none"></audio>
     <script src="script.js"></script>
   </body>
-
-  <!-- Noel Decorations -->
-  <div id="angelLeft" class="side-angel left hidden">
-    <div class="angel-wrap">
-      <img src="music/image23.png" alt="Angel Left" />
-    </div>
-  </div>
-
-  <div id="angelRight" class="side-angel right hidden">
-    <div class="angel-wrap">
-      <img src="music/image24.png" alt="Angel Right" />
-    </div>
-  </div>
 </html>
