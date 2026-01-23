@@ -1,290 +1,342 @@
-/************* Typing Effect *************/
-const text = 'Merry Christmas 🎄\nTo the most beautiful girl in my life ❤️';
-let index = 0;
+/*************************************************
+ * GLOBAL HELPERS
+ *************************************************/
+function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+/*************************************************
+ * TYPING EFFECT
+ *************************************************/
+const text =
+  '🎆 HAPPY NEW YEAR 2026 🎆\n' +
+  'Chúc em một năm mới rực rỡ ✨\n' +
+  'Bình an – Thành công – Hạnh phúc ❤️';
+
+let typingIndex = 0;
 const typingElement = document.getElementById('typing');
 
 function typeText() {
-  if (index < text.length) {
-    typingElement.innerHTML += text[index] === '\n' ? '<br>' : text[index];
-    index++;
+  if (typingIndex < text.length) {
+    typingElement.innerHTML +=
+      text[typingIndex] === '\n' ? '<br>' : text[typingIndex];
+    typingIndex++;
     setTimeout(typeText, 80);
   }
 }
 typeText();
 
-/************* Reasons *************/
+/*************************************************
+ * REASONS
+ *************************************************/
 const reasons = [
-  'Anh luôn muốn được gặp và bên cạnh cô Trinh mỗi ngày 🌞',
-  'Vì em luôn quan tâm anh 🫶',
-  'Mỗi lần em cười làm mọi thứ trong anh trở nên rất hạnh phúc ✨😊',
-  'Em là điều tuyệt vời nhất trong cuộc đời anh 💖🌷',
-  'Hãy mở hộp quà để biết điều bất ngờ anh làm cho em nhé 🎁💌',
+  'Chúc em luôn mạnh khỏe và bình an trong năm mới 🌸',
+  'Chúc mọi ước mơ của em sớm trở thành hiện thực ✨',
+  'Mong nụ cười của em luôn rạng rỡ mỗi ngày 😊',
+  'Chúc em thành công trên con đường em chọn 💖',
+  'Một món quà nhỏ anh dành cho em trong năm mới 🎁',
 ];
 
 const reasonList = document.getElementById('reasonList');
 
-reasons.forEach((reason, i) => {
+reasons.forEach((t, i) => {
   const li = document.createElement('li');
-  li.innerText = reason;
+  li.innerText = t;
   reasonList.appendChild(li);
-
-  setTimeout(() => {
-    li.style.opacity = 1;
-  }, (i + 1) * 2000);
+  setTimeout(() => (li.style.opacity = 1), (i + 1) * 2000);
 });
 
-/************* Music *************/
+/*************************************************
+ * MUSIC + BEAT SYNC (LIGHT)
+ *************************************************/
 const music = document.getElementById('music');
 const musicToggle = document.getElementById('musicToggle');
 
-if (music) {
-  music.loop = true;
-  music.volume = 0.8;
-}
+/* ===== PLAYLIST ===== */
+const playlist = [
+  'music/canhthiepdauxuan.mp3',
+  'music/muaxuandautien.mp3',
+  'music/namquatoidalamgi.mp3',
+];
 
-/* icon bật / tắt nhạc */
+let currentTrack = 0;
+let isPlaying = false;
+
+music.volume = 0.8;
+music.muted = false;
+music.src = playlist[currentTrack];
+
+/* khi hết bài → tự sang bài tiếp */
+music.addEventListener('ended', () => {
+  currentTrack = (currentTrack + 1) % playlist.length;
+  music.src = playlist[currentTrack];
+  music.play().catch(() => {});
+});
+
+/* toggle 🔇 / 🔊 */
 musicToggle.addEventListener('click', (e) => {
   e.stopPropagation();
-
-  if (music.muted) {
-    music.muted = false;
-    music.play();
+  if (!isPlaying) {
+    music.play().catch(() => {});
     musicToggle.textContent = '🔊';
+    isPlaying = true;
   } else {
-    music.muted = true;
+    music.pause();
     musicToggle.textContent = '🔇';
+    isPlaying = false;
   }
 });
 
-/************* Gift Button *************/
+/*************************************************
+ * BEAT DETECT (LIGHT) – GIỮ SLIDER CHẠY
+ *************************************************/
+let lastBeat = 0;
+const BEAT_INTERVAL = 0.95;
+
+function onBeat(cb) {
+  if (!music || music.paused) return;
+  if (music.currentTime - lastBeat > BEAT_INTERVAL) {
+    lastBeat = music.currentTime;
+    cb();
+  }
+}
+
+/*************************************************
+ * GIFT BUTTON
+ *************************************************/
 const giftBtn = document.getElementById('giftBtn');
 const finalMessage = document.getElementById('finalMessage');
 const gallery = document.getElementById('gallery');
 
 giftBtn.addEventListener('click', () => {
-  if (music) {
-    music.pause(); // đảm bảo dừng
-    music.currentTime = 0; // 🔥 QUAY VỀ GIÂY 0
-    music.play().catch(() => {});
-    musicToggle.textContent = '🔊';
-  }
+  music.currentTime = 0;
+  music.play().catch(() => {});
+  musicToggle.textContent = '🔊';
 
-  // bật hiệu ứng rơi
   startFallingImages();
 
-  // HIỆN ẢNH + PHÁO BÔNG
   giftReveal.classList.remove('hidden');
-  giftReveal.classList.add('active');
-
-  // show gallery
   gallery.classList.remove('hidden');
-
-  // show lời chúc cuối
   finalMessage.classList.remove('hidden');
-
-  // ✨ HIỆN THIÊN THẦN 2 BÊN
   angelLeft.classList.remove('hidden');
   angelRight.classList.remove('hidden');
 
-  // ẩn nút mở quà
   giftBtn.style.display = 'none';
 
-  // ⏬ SCROLL GALLERY VÀO GIỮA MÀN HÌNH
   setTimeout(() => {
-    gallery.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
-  }, 300); // đợi gallery hiện ra
-
-  // 🎆 REAL FIREWORK BURST
-  for (let i = 0; i < 8; i++) {
-    setTimeout(() => {
-      createFirework(
-        window.innerWidth * (0.2 + Math.random() * 0.6),
-        window.innerHeight * (0.2 + Math.random() * 0.4)
-      );
-    }, i * 450);
-  }
+    gallery.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 400);
 
   startFireworkLoop();
 });
 
-/************* Snow Effect *************/
+/*************************************************
+ * SNOW EFFECT
+ *************************************************/
 const canvas = document.getElementById('snow');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
-const snowflakes = [];
+// const snowflakes = Array.from({ length: 150 }, () => ({
+//   x: Math.random() * canvas.width,
+//   y: Math.random() * canvas.height,
+//   r: Math.random() * 4 + 1,
+//   d: Math.random(),
+// }));
 
-for (let i = 0; i < 150; i++) {
-  snowflakes.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 4 + 1,
-    d: Math.random() * 1,
-  });
-}
+// let snowAngle = 0;
 
-function drawSnow() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = 'white';
-  ctx.beginPath();
-  snowflakes.forEach((flake) => {
-    ctx.moveTo(flake.x, flake.y);
-    ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
-  });
-  ctx.fill();
-  moveSnow();
-}
+// setInterval(() => {
+//   ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   ctx.fillStyle = 'white';
+//   ctx.beginPath();
 
-let angle = 0;
-function moveSnow() {
-  angle += 0.01;
-  snowflakes.forEach((flake) => {
-    flake.y += Math.cos(angle + flake.d) + 1;
-    flake.x += Math.sin(angle) * 0.5;
+//   snowflakes.forEach((f) => {
+//     ctx.moveTo(f.x, f.y);
+//     ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+//     f.y += Math.cos(snowAngle + f.d) + 1;
+//     f.x += Math.sin(snowAngle) * 0.5;
 
-    if (flake.y > canvas.height) {
-      flake.y = 0;
-      flake.x = Math.random() * canvas.width;
-    }
-  });
-}
+//     if (f.y > canvas.height) {
+//       f.y = 0;
+//       f.x = Math.random() * canvas.width;
+//     }
+//   });
 
-setInterval(drawSnow, 25);
+//   ctx.fill();
+//   snowAngle += 0.01;
+// }, 25);
 
-/************* Image Slider *************/
-const slides = document.querySelectorAll('.slider img');
-let currentSlide = 0;
-
-function showSlide(index) {
-  slides.forEach((img) => img.classList.remove('active'));
-  slides[index].classList.add('active');
-}
-
-setInterval(() => {
-  currentSlide = (currentSlide + 1) % slides.length;
-  showSlide(currentSlide);
-}, 3500);
-
-/************* Falling Images *************/
+/*************************************************
+ * FALLING IMAGES
+ *************************************************/
 const fallImages = [
-  { src: 'music/image7.png', class: 'tree' },
-  { src: 'music/image8.png', class: 'angel' },
-  { src: 'music/image9.png', class: 'santa' },
-  { src: 'music/image19.png', class: 'tree' },
+  { src: 'music/image22.png', class: 'tree' },
+  { src: 'music/image25.png', class: 'angel' },
+  { src: 'music/image26.png', class: 'santa' },
 ];
 
-function createFallingItem() {
-  const item = fallImages[Math.floor(Math.random() * fallImages.length)];
+let fallingInterval = null;
 
+function createFallingItem() {
+  const item = random(fallImages);
   const img = document.createElement('img');
   img.src = item.src;
   img.className = `fall-item ${item.class}`;
-
-  img.style.left = Math.random() * window.innerWidth + 'px';
-
-  const duration = Math.random() * 6 + 8; // 8–14s
-  img.style.animationDuration = duration + 's';
-
+  img.style.left = Math.random() * innerWidth + 'px';
+  img.style.animationDuration = Math.random() * 6 + 8 + 's';
   document.body.appendChild(img);
-
-  setTimeout(() => {
-    img.remove();
-  }, duration * 1000);
+  setTimeout(() => img.remove(), 15000);
 }
-
-/************* Falling Images Control *************/
-let fallingInterval = null;
 
 function startFallingImages() {
-  if (fallingInterval) return; // tránh chạy 2 lần
-
-  fallingInterval = setInterval(createFallingItem, 700);
+  if (!fallingInterval) fallingInterval = setInterval(createFallingItem, 700);
 }
 
-// document.addEventListener(
-//   'click',
-//   () => {
-//     if (!music) return;
-
-//     music.muted = false;
-
-//     // ⚠️ play() PHẢI nằm trong user click thật
-//     music.play().catch(() => {});
-
-//     musicToggle.textContent = '🔊';
-//   },
-//   { once: true }
-// );
-
-/************* SHOOTING STAR *************/
-function createMeteor() {
-  const meteor = document.createElement('div');
-  meteor.className = 'meteor';
-
-  meteor.style.top = Math.random() * window.innerHeight * 0.2 + 'px';
-
-  meteor.style.left = window.innerWidth + Math.random() * 400 + 'px';
-
-  const duration = Math.random() * 2.5 + 3.5; // 3.5 – 6s
-  meteor.style.animationDuration = duration + 's';
-
-  document.body.appendChild(meteor);
-
-  setTimeout(() => meteor.remove(), duration * 1000);
-}
-
-// mưa sao băng liên tục
-setInterval(() => {
-  createMeteor();
-
-  if (Math.random() > 0.7) {
-    setTimeout(createMeteor, 300);
-  }
-}, 1200);
-/************* REAL FIREWORK (FIXED) *************/
+/*************************************************
+ * FIREWORK
+ *************************************************/
 function createFirework(x, y) {
   const firework = document.createElement('div');
   firework.className = 'firework';
   firework.style.left = x + 'px';
   firework.style.top = y + 'px';
 
-  const colors = ['#ffd700', '#ff4d6d', '#7df9ff', '#ffffff', '#ff9f1c'];
-  const sparks = 28;
-
-  for (let i = 0; i < sparks; i++) {
+  for (let i = 0; i < 28; i++) {
     const spark = document.createElement('span');
     spark.className = 'spark';
-
-    const angle = (Math.PI * 2 * i) / sparks;
-    const distance = Math.random() * 140 + 60;
-
-    spark.style.setProperty('--x', Math.cos(angle) * distance + 'px');
-    spark.style.setProperty('--y', Math.sin(angle) * distance + 'px');
-    spark.style.color = colors[Math.floor(Math.random() * colors.length)];
-
+    const angle = (Math.PI * 2 * i) / 28;
+    const dist = Math.random() * 140 + 60;
+    spark.style.setProperty('--x', Math.cos(angle) * dist + 'px');
+    spark.style.setProperty('--y', Math.sin(angle) * dist + 'px');
+    spark.style.color = random(['#ffd700', '#ff4d6d', '#7df9ff', '#ffffff']);
     firework.appendChild(spark);
   }
 
   document.body.appendChild(firework);
-
   setTimeout(() => firework.remove(), 1800);
 }
 
-/************* FIREWORK LOOP *************/
 let fireworkInterval = null;
-
 function startFireworkLoop() {
-  if (fireworkInterval) return; // tránh chạy nhiều lần
-
-  fireworkInterval = setInterval(() => {
-    createFirework(
-      window.innerWidth * (0.15 + Math.random() * 0.7),
-      window.innerHeight * (0.15 + Math.random() * 0.5)
-    );
-  }, 900); // 🔥 1 pháo hoa mỗi 0.9s
+  if (!fireworkInterval) {
+    fireworkInterval = setInterval(() => {
+      createFirework(
+        innerWidth * (0.2 + Math.random() * 0.6),
+        innerHeight * (0.2 + Math.random() * 0.4)
+      );
+    }, 900);
+  }
 }
+
+/*************************************************
+ * ADVANCED SLIDER – INTRO / SINGLE / OUTRO LOOP
+ *************************************************/
+const slides = document.querySelectorAll('.slider img');
+let slideIndex = 0;
+let singleCount = 0;
+
+const MODE = { INTRO: 0, SINGLE: 1, OUTRO: 2 };
+let mode = MODE.INTRO;
+
+const entryAnimations = [
+  'in-left',
+  'in-right',
+  'in-top',
+  'in-bottom',
+  'in-rotate',
+  'in-zoom-corner',
+];
+
+function getOrientation(img) {
+  return img.naturalWidth > img.naturalHeight ? 'landscape' : 'portrait';
+}
+
+function getEntryByOrientation(img) {
+  return getOrientation(img) === 'landscape'
+    ? random(['in-left', 'in-right'])
+    : random(['in-top', 'in-bottom']);
+}
+
+function clearSlides() {
+  slides.forEach((img) => {
+    img.className = '';
+    img.style.removeProperty('--dx');
+    img.style.removeProperty('--dy');
+    img.style.removeProperty('--rot');
+  });
+}
+
+/* ---------- INTRO (multi burst) ---------- */
+function playIntro() {
+  const picks = [...slides].sort(() => Math.random() - 0.5).slice(0, 4);
+
+  picks.forEach((img, i) => {
+    img.className = 'burst intro active';
+    img.style.setProperty('--dx', `${Math.random() * 300 - 150}px`);
+    img.style.setProperty('--dy', `${Math.random() * 200 - 100}px`);
+    img.style.setProperty('--rot', `${Math.random() * 20 - 10}deg`);
+
+    onBeat(() => img.classList.add('pulse'));
+    setTimeout(() => img.classList.remove('pulse'), 200);
+  });
+
+  setTimeout(() => {
+    clearSlides();
+    mode = MODE.SINGLE;
+    playSingle();
+  }, 2200);
+}
+
+/* ---------- SINGLE (cinematic flow) ---------- */
+function playSingle() {
+  const prev = slides[(slideIndex - 1 + slides.length) % slides.length];
+  if (prev) {
+    prev.classList.remove('active');
+    prev.classList.add('ghost');
+    setTimeout(() => prev.classList.add('fade-out'), 50);
+    setTimeout(() => (prev.className = ''), 1700);
+  }
+
+  const img = slides[slideIndex];
+  const anim = getEntryByOrientation(img);
+
+  img.classList.add('active', anim);
+  onBeat(() => (img.style.transform += ' scale(1.04)'));
+
+  slideIndex = (slideIndex + 1) % slides.length;
+  singleCount++;
+
+  if (singleCount >= 6) {
+    singleCount = 0;
+    mode = MODE.OUTRO;
+    setTimeout(playOutro, 4500);
+  } else {
+    setTimeout(playSingle, 4500);
+  }
+}
+
+/* ---------- OUTRO (burst + light dissolve) ---------- */
+function playOutro() {
+  const picks = [...slides].sort(() => Math.random() - 0.5).slice(0, 5);
+
+  picks.forEach((img) => {
+    img.className = 'burst outro active light-out';
+    img.style.setProperty('--dx', `${Math.random() * 400 - 200}px`);
+    img.style.setProperty('--dy', `${Math.random() * 300 - 150}px`);
+    img.style.setProperty('--rot', `${Math.random() * 30 - 15}deg`);
+  });
+
+  setTimeout(() => {
+    clearSlides();
+    mode = MODE.INTRO;
+    playIntro();
+  }, 2400);
+}
+
+/*************************************************
+ * START SLIDER
+ *************************************************/
+playIntro();
