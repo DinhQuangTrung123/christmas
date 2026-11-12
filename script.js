@@ -318,7 +318,7 @@ function typeText() {
  * LỜI CHÚC (hiện khi cuộn tới)
  *************************************************/
 const reasons = [
-  "Cảm ơn em vì đã xuất hiện trong cuộc đời anh 🌟",
+  "Cảm ơn em vì đã luôn ở bên anh 🌟",
   "Nụ cười của em là ánh đèn đẹp nhất trên cây thông của anh ✨",
   "Chúc em luôn mạnh khỏe, bình an và thật nhiều niềm vui 🌸",
   "Mong mọi ước mơ của em đều thành hiện thực 🎁",
