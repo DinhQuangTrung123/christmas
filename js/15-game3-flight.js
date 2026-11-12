@@ -300,8 +300,7 @@
     if (win) {
       $("flTitle").textContent = "Em là phi công giỏi nhất! 🏆";
       $("flText").innerHTML = `Vượt ${GOAL} cổng, nhặt được <b>${hearts}</b> 💖<br>Em đã vượt qua cả 3 thử thách! Mở quà thôi nào 🎁`;
-      setSurrender("surrenderFlight", 2, false);
-      stageWon(2);
+      stageDone(2);
       [0, 250, 500, 800].forEach((d) =>
         setTimeout(() => sparkle(r.left + rand(60, r.width - 60), r.top + rand(60, 260), 30, 140), d),
       );
@@ -319,6 +318,19 @@
     last = performance.now();
     requestAnimationFrame(loop);
   });
+
+  // chơi lại sau khi đã qua hết 3 màn
+  const initOv = [$("flTitle").innerHTML, $("flText").innerHTML, $("flStart").textContent];
+  replayHooks[2] = () => {
+    running = false;
+    reset();
+    draw();
+    $("flTitle").innerHTML = initOv[0];
+    $("flText").innerHTML = initOv[1];
+    $("flStart").textContent = initOv[2];
+    $("flStart").classList.remove("hidden");
+    overlay.classList.remove("off");
+  };
 
   reset();
   draw();

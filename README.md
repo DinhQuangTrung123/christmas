@@ -34,6 +34,7 @@ audio/            # music1.mp3, music2.mp3, ... (nhạc nền)
 | `14-game2-memory.js` | thử thách 2: ghép đôi ảnh |
 | `15-game3-flight.js` | thử thách 3: chuyến bay của ông già Noel |
 | `16-stages.js` | luồng 3 thử thách (`STAGES`: thắng màn trước → ẩn → mở màn sau) + nút đầu hàng |
+| `17-music-player.js` | bảng điều khiển nhạc (bấm biểu tượng loa): chọn bài, trước/sau, tua, âm lượng; tên bài đọc từ thẻ ID3 của mp3 |
 
 ## Việc hay làm
 

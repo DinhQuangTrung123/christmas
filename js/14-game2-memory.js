@@ -6,8 +6,8 @@
   const CENTER = (SIZE * SIZE - 1) / 2; // ô giữa (12) là ô tặng ❤️, không lật được
   const PAIRS = (SIZE * SIZE - 1) / 2; // 12 cặp
   const TIME = 60;
-  const MAX_MISS = 5;
-  const SHUFFLE_EVERY = 2;
+  const MAX_MISS = 10;
+  const SHUFFLE_EVERY = 3;
   const PREVIEW = 5; // giây cho xem trước
   let POOL = []; // số ảnh còn tồn tại, lấy từ imagesReady
   let pairs = PAIRS;
@@ -136,8 +136,7 @@
           d,
         ),
       );
-      setSurrender("surrenderMemory", 1, false);
-      stageWon(1);
+      stageDone(1);
     } else {
       $("memTitle").textContent =
         miss >= MAX_MISS ? "Hết lượt sai rồi 🥺" : "Hết giờ rồi ⏰";
@@ -184,6 +183,24 @@
   }
 
   $("memStart").addEventListener("click", start);
+
+  // chơi lại sau khi đã qua hết 3 màn: xóa bàn bài, về trạng thái ban đầu
+  const initOv = [$("memTitle").innerHTML, $("memText").innerHTML, $("memStart").textContent];
+  replayHooks[1] = () => {
+    running = false;
+    clearInterval(timer);
+    grid.innerHTML = "";
+    found = 0;
+    miss = 0;
+    timeLeft = TIME;
+    hud();
+    $("memTitle").innerHTML = initOv[0];
+    $("memText").innerHTML = initOv[1];
+    $("memStart").textContent = initOv[2];
+    $("memStart").classList.remove("hidden");
+    overlay.classList.remove("off");
+  };
+
   found = 0;
   miss = 0;
   timeLeft = TIME;

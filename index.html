@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/09-side-decor.css" />
     <link rel="stylesheet" href="css/10-game2-memory.css" />
     <link rel="stylesheet" href="css/11-game3-flight.css" />
+    <link rel="stylesheet" href="css/12-music-player.css" />
   </head>
   <body>
     <canvas id="snow"></canvas>
@@ -42,9 +43,33 @@
     </div>
 
     <!-- ============ NÚT NHẠC ============ -->
-    <button id="musicToggle" class="music-toggle" aria-label="Bật/tắt nhạc">
+    <button id="musicToggle" class="music-toggle" aria-label="Mở trình phát nhạc">
       🔇
     </button>
+
+    <!-- Bảng điều khiển nhạc (mở khi bấm biểu tượng loa) -->
+    <div id="musicPanel" class="music-panel" role="dialog" aria-label="Trình phát nhạc">
+      <div class="mp-head">
+        <span>🎵 Nhạc Giáng Sinh</span>
+        <button id="mpClose" class="mp-x" aria-label="Đóng">✕</button>
+      </div>
+      <div class="mp-now">
+        <div class="mp-title" id="mpTitle">Đang tải…</div>
+        <div class="mp-artist" id="mpArtist"></div>
+      </div>
+      <div class="mp-bar">
+        <span id="mpCur">0:00</span>
+        <input id="mpSeek" type="range" min="0" max="1000" value="0" aria-label="Tua bài" />
+        <span id="mpDur">0:00</span>
+      </div>
+      <div class="mp-ctrl">
+        <button id="mpPrev" aria-label="Bài trước">⏮</button>
+        <button id="mpPlay" class="mp-play" aria-label="Phát/Tạm dừng">▶</button>
+        <button id="mpNext" aria-label="Bài sau">⏭</button>
+        <span class="mp-vol">🔉<input id="mpVol" type="range" min="0" max="100" value="70" aria-label="Âm lượng" /></span>
+      </div>
+      <ul class="mp-list" id="mpList"></ul>
+    </div>
 
     <!-- ============ 1. HERO + CÂY THÔNG ============ -->
     <header class="hero">
@@ -162,12 +187,12 @@
       <h2 class="section-title">Thử thách 1/3: Hứng quà cùng ông già Noel</h2>
       <p class="game-sub">
         Kéo ông già Noel để hứng quà 🎁 ⭐ ❤️ — tránh cục than 🪨!<br />
-        Đạt <b>150 điểm</b> trong 45 giây để sang thử thách tiếp theo.
+        Đạt <b>200 điểm</b> trong 45 giây để sang thử thách tiếp theo.
       </p>
 
       <div class="game-box" id="gameBox">
         <div class="hud">
-          <span>⭐ <b id="score">0</b> / 150</span>
+          <span>⭐ <b id="score">0</b> / 200</span>
           <span>⏱ <b id="time">45</b>s</span>
           <span id="lives">❤️❤️❤️</span>
         </div>
@@ -191,7 +216,7 @@
       <p class="game-sub">
         Ma trận <b>5×5</b>: ghép <b>12 cặp ảnh</b> giống nhau trong
         <b>60 giây</b> 💞 (ô giữa là trái tim tặng em ❤️)<br />
-        Chỉ được sai tối đa <b>5 lần</b>, và cứ <b>2 lần sai</b> các lá chưa
+        Chỉ được sai tối đa <b>10 lần</b>, và cứ <b>3 lần sai</b> các lá chưa
         ghép sẽ bị xáo trộn 🔀
       </p>
 
@@ -199,7 +224,7 @@
         <div class="hud">
           <span>💞 <b id="memPairs">0</b> / <b id="memTotal">12</b></span>
           <span>⏱ <b id="memTime">60</b>s</span>
-          <span>❌ <b id="memMiss">5</b></span>
+          <span>❌ <b id="memMiss">10</b></span>
         </div>
         <div class="memory-grid" id="memGrid"></div>
         <div class="overlay" id="memOverlay">
@@ -221,8 +246,7 @@
       <p class="game-sub">
         Chạm / nhấn <b>Space</b> để bay lên, đi xuyên qua các cột kẹo gậy 🍭<br />
         Nhặt ❤️ lấy điểm, nhặt ⭐ để có khiên chắn một lần va chạm.<br />
-        Vượt qua <b>30 cổng</b> để mở quà — cẩn thận, càng bay càng
-        khó nha!
+        Vượt qua <b>30 cổng</b> để mở quà — cẩn thận, càng bay càng khó nha!
       </p>
 
       <div class="game-box" id="flightBox">
@@ -252,6 +276,16 @@
       <button id="giftBtn" class="btn gold locked" disabled>
         🎁 Mở bí mật Giáng Sinh
       </button>
+
+      <!-- hiện sau khi qua hết 3 thử thách -->
+      <div class="replay hidden" id="replayBox">
+        <p>🎮 Em đã vượt qua cả 3 thử thách! Muốn chơi lại game nào cũng được nha:</p>
+        <div class="replay-btns">
+          <button class="btn replay-btn" data-replay="0">🎁 Hứng quà</button>
+          <button class="btn replay-btn" data-replay="1">🧠 Ghép ảnh</button>
+          <button class="btn replay-btn" data-replay="2">✈️ Chuyến bay</button>
+        </div>
+      </div>
     </section>
 
     <section class="final hidden" id="finalMessage">
@@ -268,7 +302,7 @@
       <div class="coupon" id="coupon">
         <div class="coupon-title">🎟️ PHIẾU THƯỞNG BÍ MẬT 🎟️</div>
         <p>
-          Phiếu này có giá trị cho <b>một buổi hẹn hò Giáng Sinh</b>tại nhà thờ
+          Phiếu này có giá trị cho <b>một buổi hẹn hò Giáng Sinh</b> tại nhà thờ
           Phúc Nhạc
         </p>
         <div class="coupon-sign">— Anh —</div>
@@ -294,5 +328,6 @@
     <script src="js/14-game2-memory.js"></script>
     <script src="js/15-game3-flight.js"></script>
     <script src="js/16-stages.js"></script>
+    <script src="js/17-music-player.js"></script>
   </body>
 </html>

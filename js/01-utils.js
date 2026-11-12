@@ -33,3 +33,6 @@ const imagesReady = (async () => {
   );
   return flags.map((ok, i) => (ok ? i + 1 : 0)).filter(Boolean);
 })();
+
+// Mỗi game đăng ký hàm "chuẩn bị chơi lại" ở đây (replayHooks[0..2]), dùng sau khi qua hết 3 màn
+const replayHooks = [];

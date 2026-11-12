@@ -18,12 +18,31 @@ music.src = audioSrc(playlist[track]);
 
 // Dò các file nhạc còn tồn tại (giữ thứ tự số tăng dần)
 const tracksReady = (async () => {
+  // Dò bằng thẻ audio (dùng khi fetch bị chặn, ví dụ mở thẳng file:// bằng cách nhấp đúp)
+  const probeAudio = (n) =>
+    new Promise((res) => {
+      const a = new Audio();
+      let done = false;
+      const fin = (v) => {
+        if (done) return;
+        done = true;
+        a.removeAttribute("src");
+        res(v);
+      };
+      a.preload = "metadata";
+      a.onloadedmetadata = () => fin(true);
+      a.onerror = () => fin(false);
+      setTimeout(() => fin(false), 4000);
+      a.src = audioSrc(n);
+    });
   const exists = async (n) => {
     try {
       const r = await fetch(audioSrc(n), { method: "HEAD", cache: "no-cache" });
-      return r.ok && (r.headers.get("content-type") || "").startsWith("audio");
+      if (r.status === 405 || r.status === 501) return probeAudio(n); // server không hỗ trợ HEAD
+      const type = r.headers.get("content-type") || "";
+      return r.ok && !type.includes("text/html");
     } catch (e) {
-      return false; // mở trực tiếp file:// thì không dò được, dùng bài đầu + xử lý lỗi
+      return probeAudio(n);
     }
   };
   const flags = await Promise.all(
@@ -44,12 +63,16 @@ tracksReady.then((list) => {
     music.src = audioSrc(playlist[0]);
     if (playing) music.play().catch(() => {});
   }
+  window.dispatchEvent(new Event("musicchange"));
 });
 
 function playTrack(i) {
   track = (i + playlist.length) % playlist.length;
   music.src = audioSrc(playlist[track]);
+  playing = true;
+  musicToggle.textContent = "🔊";
   music.play().catch(() => {});
+  window.dispatchEvent(new Event("musicchange"));
 }
 
 // hết bài -> bài kế tiếp theo thứ tự
@@ -72,4 +95,4 @@ function setPlaying(on) {
   if (on) music.play().catch(() => (musicToggle.textContent = "🔇"));
   else music.pause();
 }
-musicToggle.addEventListener("click", () => setPlaying(!playing));
+// Bấm biểu tượng loa => mở/đóng bảng điều khiển nhạc (xem js/17-music-player.js)

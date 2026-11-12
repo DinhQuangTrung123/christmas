@@ -80,3 +80,30 @@
   0%, 100% { transform: rotate(45deg) scale(1); }
   50% { transform: rotate(45deg) scale(1.2); }
 }
+
+/* Chọn game chơi lại (hiện sau khi qua hết 3 màn) */
+.replay {
+  margin-top: 26px;
+}
+.replay p {
+  margin-bottom: 12px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+.replay-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.replay-btn {
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 216, 107, 0.5);
+  box-shadow: none;
+}
+.replay-btn.on {
+  background: linear-gradient(135deg, #ffe58a, #ffb52e);
+  color: #4a2a00;
+}

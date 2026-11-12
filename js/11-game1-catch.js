@@ -11,7 +11,7 @@
   cv.height = H * dpr;
   ctx.scale(dpr, dpr);
 
-  const GOAL = 150;
+  const GOAL = 200;
   const DURATION = 45;
   const TYPES = [
     { e: "🎁", pts: 10, w: 55 },
@@ -201,8 +201,7 @@
       $("ovTitle").textContent = "Em giỏi quá! 🎉";
       $("ovText").innerHTML =
         `Em được <b>${score}</b> điểm.<br>Qua màn 1 rồi! Chuẩn bị sang thử thách 2 nhé 🚀`;
-      setSurrender("surrender1", 0, false);
-      stageWon(0);
+      stageDone(0);
       const r = cv.getBoundingClientRect();
       [0, 250, 500].forEach((d) =>
         setTimeout(
@@ -230,6 +229,19 @@
     last = performance.now();
     requestAnimationFrame(loop);
   });
+
+  // chơi lại sau khi đã qua hết 3 màn: đưa màn chơi về trạng thái ban đầu
+  const initOv = [$("ovTitle").innerHTML, $("ovText").innerHTML, $("startGame").textContent];
+  replayHooks[0] = () => {
+    running = false;
+    reset();
+    draw();
+    $("ovTitle").innerHTML = initOv[0];
+    $("ovText").innerHTML = initOv[1];
+    $("startGame").textContent = initOv[2];
+    $("startGame").classList.remove("hidden");
+    overlay.classList.remove("off");
+  };
 
   reset();
   draw();
