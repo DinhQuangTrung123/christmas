@@ -1,0 +1,54 @@
+/* ================= FALLING ITEMS ================= */
+.fall-item {
+  position: fixed;
+  top: -120px;
+  z-index: 900;
+  width: 36px;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to { transform: translateY(115vh) rotate(360deg); }
+}
+
+/* ================= FIREWORK / SPARKLE ================= */
+.firework {
+  position: fixed;
+  z-index: 950;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  animation: spark 1.4s ease-out forwards;
+}
+
+@keyframes spark {
+  to { transform: translate(var(--x), var(--y)); opacity: 0; }
+}
+
+.float-text {
+  position: fixed;
+  z-index: 960;
+  pointer-events: none;
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(255, 216, 107, 0.8);
+  animation: floatUp 1.6s ease-out forwards;
+}
+
+@keyframes floatUp {
+  from { opacity: 1; transform: translate(-50%, 0); }
+  to { opacity: 0; transform: translate(-50%, -80px); }
+}
+
+@media (max-width: 480px) {
+  .countdown { gap: 8px; }
+  .countdown div { min-width: 60px; }
+}

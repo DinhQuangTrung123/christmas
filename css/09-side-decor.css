@@ -1,0 +1,85 @@
+/* ================= TRANG TRÍ HAI BÊN ================= */
+.side {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 18vw;
+  max-width: 260px;
+  z-index: 1;
+  display: none;
+  pointer-events: none;
+}
+.side.left { left: 0; }
+.side.right { right: 0; }
+
+@media (min-width: 1100px) {
+  .side { display: block; }
+}
+
+.side-string {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.side.left .side-string { left: 18px; }
+.side.right .side-string { right: 18px; }
+.side-string::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: rgba(255, 216, 107, 0.35);
+}
+.side-string i {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px 3px currentColor;
+  animation: bulb 1.6s ease-in-out infinite;
+}
+
+.side-icon {
+  position: absolute;
+  width: 56px;
+  pointer-events: auto;
+  cursor: pointer;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
+  animation: bob 4s ease-in-out infinite;
+}
+.side.left .side-icon { left: 22%; }
+.side.right .side-icon { right: 22%; }
+.side-icon:nth-of-type(even) { width: 46px; margin-left: 60px; }
+.side.right .side-icon:nth-of-type(even) { margin-left: 0; margin-right: 60px; }
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-18px) rotate(6deg); }
+}
+
+.sleigh {
+  position: fixed;
+  top: 9%;
+  left: 0;
+  z-index: 1;
+  font-size: 34px;
+  white-space: nowrap;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px rgba(255, 216, 107, 0.5));
+  animation: fly 22s linear infinite;
+  animation-delay: 4s;
+  transform: translateX(-30vw);
+}
+@keyframes fly {
+  0% { transform: translate(-30vw, 0) scaleX(-1); }
+  50% { transform: translate(120vw, -40px) scaleX(-1); }
+  50.01% { transform: translate(120vw, -40px) scaleX(1); }
+  100% { transform: translate(-30vw, 10px) scaleX(1); }
+}

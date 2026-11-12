@@ -1,0 +1,89 @@
+/* ================= GAME 2: GHÉP ĐÔI ================= */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  padding: 10px;
+  /* giữ khung đủ cao ngay cả khi chưa chia bài (lưới còn trống) */
+  aspect-ratio: 1 / 1;
+  align-content: start;
+}
+.mcard {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  perspective: 600px;
+  -webkit-tap-highlight-color: transparent;
+}
+.mface {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.45s;
+}
+.mback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 5vw, 1.6rem);
+  background: repeating-linear-gradient(45deg, #1f7a4a 0 6px, #2e9e5b 6px 12px);
+  border: 1px solid var(--gold);
+}
+.mfront {
+  transform: rotateY(180deg);
+  background: #111;
+  border: 1px solid #fff;
+}
+.mfront img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.mcard.open .mback { transform: rotateY(180deg); }
+.mcard.open .mfront { transform: rotateY(0); }
+.mcard.done .mfront {
+  border-color: var(--gold);
+  box-shadow: 0 0 8px 1px rgba(255, 216, 107, 0.8);
+}
+.mcard.done { cursor: default; }
+.mcard.shaking { animation: cardShake 0.4s ease-in-out 2; }
+@keyframes cardShake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-5px) rotate(-4deg); }
+  75% { transform: translateX(5px) rotate(4deg); }
+}
+
+/* ô giữa của ma trận 5x5 (tặng ❤️, không lật được) */
+.mfree {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.2rem, 6vw, 2rem);
+  border-radius: 8px;
+  background: rgba(255, 216, 107, 0.15);
+  border: 1px dashed var(--gold);
+  animation: beat2 1.2s ease-in-out infinite;
+}
+@keyframes beat2 {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+/* Khung game ghép ảnh rộng hơn game khác để ảnh to, dễ nhìn */
+#memoryBox {
+  width: min(96vw, 540px);
+}
+@media (max-width: 480px) {
+  .memory-grid {
+    gap: 5px;
+    padding: 8px;
+  }
+}

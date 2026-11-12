@@ -1,0 +1,128 @@
+/* ================= HERO ================= */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px 30px;
+}
+
+.tree-wrap {
+  position: relative;
+  width: min(78vw, 360px);
+}
+
+.tree {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 30px rgba(46, 158, 91, 0.35));
+  cursor: pointer;
+}
+
+.tree-star {
+  transform-origin: 150px 36px;
+  animation: starPulse 2s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+  0%, 100% { transform: scale(1) rotate(0); }
+  50% { transform: scale(1.12) rotate(6deg); }
+}
+
+.tree .bulb {
+  animation: bulb 1.6s ease-in-out infinite;
+}
+
+@keyframes bulb {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+.tree .ball {
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: swing 3s ease-in-out infinite;
+}
+
+@keyframes swing {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+
+.tree-hint {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  opacity: 0.65;
+  animation: twinkle 3s infinite;
+}
+
+.title {
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  font-size: clamp(3rem, 12vw, 5.5rem);
+  line-height: 1.1;
+  margin-top: 10px;
+  background: linear-gradient(90deg, #ffe9a8, #ff8a9b, #ffe9a8);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 5s linear infinite;
+}
+
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+
+.subtitle {
+  font-weight: 600;
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-top: 4px;
+}
+
+.typing {
+  min-height: 3.6em;
+  margin-top: 16px;
+  max-width: 520px;
+  font-size: clamp(1rem, 3.6vw, 1.2rem);
+  line-height: 1.8;
+  opacity: 0.95;
+}
+
+.countdown {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.countdown div {
+  min-width: 66px;
+  padding: 10px 8px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+}
+
+.countdown b {
+  display: block;
+  font-size: 1.6rem;
+  color: var(--gold);
+}
+
+.countdown span {
+  font-size: 0.72rem;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.countdown-label {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
