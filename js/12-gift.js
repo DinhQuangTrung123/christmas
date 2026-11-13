@@ -5,7 +5,8 @@ const giftBtn = $("giftBtn");
 function unlockGift() {
   giftBtn.disabled = false;
   giftBtn.classList.remove("locked");
-  $("giftLock").textContent = "🔓 Em đã vượt qua cả 3 thử thách, mở quà đi!";
+  $("giftLock").textContent =
+    "🔓 Cô Trinh anh đã vượt qua cả 3 thử thách, mở quà được rùi ngen ^^";
 }
 
 giftBtn.addEventListener("click", () => {

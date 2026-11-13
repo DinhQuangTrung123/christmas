@@ -43,12 +43,21 @@
     </div>
 
     <!-- ============ NÚT NHẠC ============ -->
-    <button id="musicToggle" class="music-toggle" aria-label="Mở trình phát nhạc">
+    <button
+      id="musicToggle"
+      class="music-toggle"
+      aria-label="Mở trình phát nhạc"
+    >
       🔇
     </button>
 
     <!-- Bảng điều khiển nhạc (mở khi bấm biểu tượng loa) -->
-    <div id="musicPanel" class="music-panel" role="dialog" aria-label="Trình phát nhạc">
+    <div
+      id="musicPanel"
+      class="music-panel"
+      role="dialog"
+      aria-label="Trình phát nhạc"
+    >
       <div class="mp-head">
         <span>🎵 Nhạc Giáng Sinh</span>
         <button id="mpClose" class="mp-x" aria-label="Đóng">✕</button>
@@ -59,14 +68,31 @@
       </div>
       <div class="mp-bar">
         <span id="mpCur">0:00</span>
-        <input id="mpSeek" type="range" min="0" max="1000" value="0" aria-label="Tua bài" />
+        <input
+          id="mpSeek"
+          type="range"
+          min="0"
+          max="1000"
+          value="0"
+          aria-label="Tua bài"
+        />
         <span id="mpDur">0:00</span>
       </div>
       <div class="mp-ctrl">
         <button id="mpPrev" aria-label="Bài trước">⏮</button>
-        <button id="mpPlay" class="mp-play" aria-label="Phát/Tạm dừng">▶</button>
+        <button id="mpPlay" class="mp-play" aria-label="Phát/Tạm dừng">
+          ▶
+        </button>
         <button id="mpNext" aria-label="Bài sau">⏭</button>
-        <span class="mp-vol">🔉<input id="mpVol" type="range" min="0" max="100" value="70" aria-label="Âm lượng" /></span>
+        <span class="mp-vol"
+          >🔉<input
+            id="mpVol"
+            type="range"
+            min="0"
+            max="100"
+            value="70"
+            aria-label="Âm lượng"
+        /></span>
       </div>
       <ul class="mp-list" id="mpList"></ul>
     </div>
@@ -279,7 +305,10 @@
 
       <!-- hiện sau khi qua hết 3 thử thách -->
       <div class="replay hidden" id="replayBox">
-        <p>🎮 Em đã vượt qua cả 3 thử thách! Muốn chơi lại game nào cũng được nha:</p>
+        <p>
+          🎮 Em đã vượt qua cả 3 thử thách! Muốn chơi lại game nào cũng được
+          ngen ^^:
+        </p>
         <div class="replay-btns">
           <button class="btn replay-btn" data-replay="0">🎁 Hứng quà</button>
           <button class="btn replay-btn" data-replay="1">🧠 Ghép ảnh</button>
